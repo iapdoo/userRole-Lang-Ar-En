@@ -25,10 +25,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware'=>['web','admin']],function (){
     Route::get('/adminpanel', 'AdminController@index');
 });
-Route::get('lang/{lang}',function ($lang){
-
-        session()->has('lang')?session()->forget('lang'):'';
-        $lang=='ar'? session()->put('lang','ar'): session()->put('lang','en');
-        return back();
-
-});
+Route::get('lang/{lang}','LangController@lang');
