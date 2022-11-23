@@ -52,41 +52,6 @@
 
 
                         @if(auth()->user()->role=='admin')
-                            <!-- Messages Dropdown Menu -->
-                                <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{trans('admin.lang')}}
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a href="{{url('lang/ar')}}" class="dropdown-item">
-                                            <!-- Message Start -->
-                                            <div class="media">
-                                                <div class="media-body">
-                                                    <h3 class="dropdown-item-title">
-                                                        <i class="fa fa-flag"></i>
-                                                        عربي
-                                                    </h3>
-
-                                                </div>
-                                            </div>
-                                            <!-- Message End -->
-                                        </a>
-                                    <a href="{{url('lang/en')}}" class="dropdown-item">
-                                            <!-- Message Start -->
-                                            <div class="media">
-                                                <div class="media-body">
-                                                    <h3 class="dropdown-item-title">
-                                                        <i class="fa fa-flag"></i>
-                                                        English
-                                                    </h3>
-
-                                                </div>
-                                            </div>
-                                            <!-- Message End -->
-                                        </a>
-                                    </div>
-                                </li>
-                                <!-- Notifications Dropdown Menu -->
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{url('adminpanel')}}">{{trans('admin.adminpanel')}}</a>
                                 </li>
@@ -107,6 +72,30 @@
                                         @csrf
                                     </form>
                                 </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ LaravelLocalization::getCurrentLocaleNative() }}
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                                    <div class="dropdown-divider"></div>
+                                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                        <a class="dropdown-item" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                            <!-- Message Start -->
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <h3 class="dropdown-item-title">
+                                                        <i class="fa fa-flag"></i>
+                                                        {{ $properties['native'] }}
+                                                    </h3>
+
+                                                </div>
+                                            </div>
+                                            <!-- Message End -->
+                                        </a>
+                                    @endforeach
+                                </div>
+
                             </li>
 
                         @endguest

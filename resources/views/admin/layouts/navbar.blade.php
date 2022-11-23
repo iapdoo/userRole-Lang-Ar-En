@@ -51,34 +51,21 @@
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <div class="dropdown-divider"></div>
-                <a href="{{url('lang/ar')}}" class="dropdown-item">
+                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    <a class="dropdown-item" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                     <!-- Message Start -->
                     <div class="media">
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
                                 <i class="fa fa-flag"></i>
-                                عربي
+                                {{ $properties['native'] }}
                             </h3>
 
                         </div>
                     </div>
                     <!-- Message End -->
                 </a>
-                <div class="dropdown-divider"></div>
-                <a href="{{url('lang/en')}}" class="dropdown-item">
-                    <!-- Message Start -->
-                    <div class="media">
-                        <div class="media-body">
-                            <h3 class="dropdown-item-title">
-                                <i class="fa fa-flag"></i>
-                                English
-                            </h3>
-
-                        </div>
-                    </div>
-                    <!-- Message End -->
-                </a>
-                <div class="dropdown-divider"></div>
+                @endforeach
             </div>
         </li>
         <!-- Notifications Dropdown Menu -->
